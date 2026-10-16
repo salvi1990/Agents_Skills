@@ -1,0 +1,10 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "dev-team",
+  "version": "0.1.0",
+  "description": "Rollen-Agents für die Softwareentwicklung: DB-Entwickler/DBA, Software-Tester, Software-Architekt, Frontend- und Backend-Entwickler. Aufruf über /dev-team:<rolle>.",
+  "author": {
+    "name": "salvi1990"
+  },
+  "keywords": ["agents", "database", "testing", "architecture", "frontend", "backend"]
+}

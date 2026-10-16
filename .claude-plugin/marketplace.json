@@ -1,0 +1,25 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "agents-skills",
+  "owner": {
+    "name": "salvi1990"
+  },
+  "metadata": {
+    "description": "Wiederverwendbare Agents und Skills für die Entwicklung in allen Repositories.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "dev-team",
+      "source": "./plugins/dev-team",
+      "description": "Rollen-Agents: DB-Entwickler/DBA, Software-Tester, Software-Architekt, Frontend- und Backend-Entwickler.",
+      "category": "development"
+    },
+    {
+      "name": "workflow",
+      "source": "./plugins/workflow",
+      "description": "Arbeitsweise: Model-Router (passendes Modell wählen) und Grille-mich (Plan im Interview schärfen).",
+      "category": "productivity"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "plugin-name",
+  "version": "0.1.0",
+  "description": "Was dieses Plugin bereitstellt. Aufruf über /plugin-name:<skill>.",
+  "author": {
+    "name": "salvi1990"
+  },
+  "keywords": []
+}

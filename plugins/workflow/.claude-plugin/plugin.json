@@ -1,0 +1,10 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "workflow",
+  "version": "0.1.0",
+  "description": "Arbeitsweise-Skills: /workflow:model-router wählt das passende Modell, /workflow:grille-mich schärft einen Plan im Interview.",
+  "author": {
+    "name": "salvi1990"
+  },
+  "keywords": ["model-routing", "planning", "interview"]
+}

@@ -1,0 +1,14 @@
+{
+  "extraKnownMarketplaces": {
+    "agents-skills": {
+      "source": {
+        "source": "github",
+        "repo": "salvi1990/Agents_Skills"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "dev-team@agents-skills": true,
+    "workflow@agents-skills": true
+  }
+}
