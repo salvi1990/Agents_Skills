@@ -24,35 +24,23 @@ claude --agent workflow:model-router
 
 ## In einem anderen Repository verwenden
 
-**Variante A, empfohlen: im Ziel-Repo fest eintragen.** Gilt dann automatisch für alle, die das Repo öffnen, auch in Cloud-Sessions. Datei `.claude/settings.json` im Ziel-Repo:
+Ausführliche Anleitung mit allen Varianten, Updates und Fehlerbehebung: **[docs/ANLEITUNG.md](docs/ANLEITUNG.md)**. Kurzfassung:
 
-```json
-{
-  "extraKnownMarketplaces": {
-    "agents-skills": {
-      "source": { "source": "github", "repo": "salvi1990/Agents_Skills" }
-    }
-  },
-  "enabledPlugins": {
-    "dev-team@agents-skills": true,
-    "workflow@agents-skills": true
-  }
-}
+**CLI** (Terminal, Desktop lokal, IDE):
+
+```bash
+claude plugin marketplace add salvi1990/Agents_Skills
+claude plugin install dev-team@agents-skills
+claude plugin install workflow@agents-skills
 ```
 
-Nur aktivieren, was das Repo braucht: Jedes aktivierte Plugin kostet ein paar hundert Tokens Kontext pro Sitzung (`claude plugin details <plugin>` zeigt die Zahlen).
+Für ein bestimmtes Repo stattdessen `--scope project` anhängen und die erzeugte `.claude/settings.json` committen.
 
-**Variante B: einmalig von Hand**, für deinen Benutzer in allen Projekten:
+**Web** (claude.ai/code, Claude-App, `claude --cloud`): `/plugin` und die Plugin-Einträge in `.claude/settings.json` wirken in Cloud-Sessions **nicht**. Stattdessen den Inhalt von [`scripts/cloud-setup.sh`](scripts/cloud-setup.sh) als **Setup script** der Cloud-Umgebung eintragen. Dann sind die Plugins in jeder neuen Sitzung dieser Umgebung verfügbar, in jedem Repo.
 
-```
-/plugin marketplace add salvi1990/Agents_Skills
-/plugin install dev-team@agents-skills
-/plugin install workflow@agents-skills
-```
+Nur aktivieren, was gebraucht wird: Jedes Plugin kostet ein paar hundert Tokens Kontext pro Sitzung (`claude plugin details <plugin>`).
 
-Updates holen: `/plugin marketplace update agents-skills`.
-
-Dieses Repository selbst nutzt Variante A (`.claude/settings.json`). Die Plugins werden vom Default-Branch auf GitHub geladen, Änderungen gelten also erst nach dem Merge.
+Dieses Repository selbst aktiviert beide Plugins für die CLI über `.claude/settings.json`. Sie werden vom Default-Branch auf GitHub geladen, Änderungen gelten also erst nach dem Merge.
 
 ## Aufbau
 
@@ -65,7 +53,9 @@ plugins/
     agents/<agent>.md               Subagents (Systemprompt + Frontmatter)
     skills/<skill>/SKILL.md         /-Befehle und Wissens-Skills
 templates/                          Vorlagen für neue Agents, Skills, Plugins
+docs/ANLEITUNG.md                   Installation und Nutzung, CLI und Web
 scripts/validate.sh                 Prüft Marketplace und alle Plugins
+scripts/cloud-setup.sh              Setup-Skript für Cloud-Umgebungen (Web)
 ```
 
 Konventionen:
