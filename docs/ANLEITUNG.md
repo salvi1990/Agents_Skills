@@ -148,7 +148,7 @@ Das Setup-Skript installiert die Plugins auf der Cloud-VM, bevor Claude Code sta
 1. [claude.ai/code](https://claude.ai/code) öffnen.
 2. Unten bei der Auswahl der Umgebung (z.B. „Default“) die Einstellungen der Umgebung öffnen, oder über **Settings → Cloud environments**.
 3. Inhalt von [`scripts/cloud-setup.sh`](../scripts/cloud-setup.sh) in das Feld **Setup script** kopieren und speichern.
-4. Netzwerkzugriff der Umgebung mindestens auf **Trusted** lassen, damit GitHub erreichbar ist.
+4. **Netzwerkzugriff** muss `github.com` erlauben: entweder **Vertrauenswürdig** („Trusted“) wählen, oder bei **Eingeschränkt** `github.com` unter „Erlaubte Domains“ eintragen. Mit „Eingeschränkt“ und leerer Liste schlägt die Installation still fehl.
 5. **Neue** Sitzung starten. Bereits laufende Sitzungen bekommen das Skript nicht.
 
 Das Skript wird nach dem ersten Lauf zwischengespeichert. Neue Sitzungen starten aus diesem Zwischenstand, ohne das Skript erneut auszuführen. Wie du Updates holst, steht in [Abschnitt 5](#5-updates).
@@ -241,7 +241,8 @@ Einen bestimmten Stand festhalten: beim Hinzufügen `#<branch-oder-tag>` anhäng
 | Problem | Lösung |
 |---|---|
 | `/dev-team:…` erscheint nicht (CLI) | `claude plugin list` prüfen; ggf. `/reload-plugins` oder neue Sitzung |
-| `/dev-team:…` erscheint nicht (Web) | Setup-Skript gespeichert? **Neue** Sitzung in **dieser** Umgebung gestartet? Netzwerk mindestens „Trusted“? |
+| `/dev-team:…` erscheint nicht (Web) | Setup-Skript gespeichert? **Neue** Sitzung in **dieser** Umgebung gestartet? Ist `github.com` erreichbar (Netzwerk „Vertrauenswürdig“ oder Domain erlaubt)? In der Sitzung Claude bitten, `cat ~/.claude/agents-skills-setup.log` auszuführen, das zeigt den Fehler |
+| Setup-Skript liegt als Datei im Ziel-Repo | Wirkt nicht. Es gehört ins Feld „Setup-Skript“ der Cloud-Umgebung |
 | `Plugin "…" not found in marketplace` | Marketplace-Name ist `agents-skills`, nicht `Agents_Skills`. `claude plugin marketplace list` zeigt die Namen |
 | Klonen schlägt fehl (privates Repo) | `gh auth login` und `gh auth setup-git`, oder SSH-Schlüssel ohne Passwortabfrage. Ohne SSH-Schlüssel hilft `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` |
 | Änderung aus diesem Repo kommt nicht an | Version im `plugin.json` erhöht? Gemergt? Update geholt (Abschnitt 5)? |
