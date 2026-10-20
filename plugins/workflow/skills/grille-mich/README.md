@@ -29,6 +29,8 @@ In Claude Code: `/workflow:grille-mich` gefolgt von deiner Idee. Am besten in ei
 
 In diesem Repository Teil des Plugins `workflow` (siehe README im Repo-Root). Die Codex-Datei `agents/openai.yaml` aus dem Original-Paket ist für Claude Code nicht nötig und wurde weggelassen.
 
+Anpassungen gegenüber der Vorlage: `argument-hint` ergänzt und ein Einstieg, der nach dem Thema fragt, wenn `/workflow:grille-mich` ohne Text aufgerufen wird.
+
 ## Lizenz und Weitergabe
 
 Das Original steht unter MIT-Lizenz (Copyright Matt Pocock). Diese deutsche Fassung darf frei weitergegeben werden, solange der Hinweis auf Quelle und Lizenz erhalten bleibt.

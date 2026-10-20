@@ -1,6 +1,7 @@
 ---
 name: grille-mich
 description: Grille den Nutzer unerbittlich zu einem Plan, einer Entscheidung oder einer Idee. Ein Interview in Runden, das das Denken schärft, bis jede Verzweigung des Entscheidungsbaums geklärt ist. Nur auf ausdrücklichen Aufruf des Nutzers (/workflow:grille-mich, "grill mich", "grille mich").
+argument-hint: <Idee, Plan oder Entscheidung>
 disable-model-invocation: true
 license: MIT
 metadata:
@@ -8,6 +9,10 @@ metadata:
   source: https://github.com/mattpocock/skills (grill-me + grilling)
   translation: Deutsche Fassung von Jonas Keil (jonaskeil.com)
 ---
+
+Thema: $ARGUMENTS
+
+Ist kein Thema angegeben, frag zuerst in einem Satz, welche Idee, welcher Plan oder welche Entscheidung gegrillt werden soll, und beginne erst nach der Antwort mit der ersten Runde.
 
 Interviewe den Nutzer unerbittlich, bis ihr ein gemeinsames Verständnis erreicht habt. Bilde das Ganze als **Entscheidungsbaum** ab: Jede Entscheidung verzweigt sich in die Entscheidungen, die von ihr abhängen.
 
