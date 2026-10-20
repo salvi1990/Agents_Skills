@@ -18,6 +18,16 @@ PLUGINS="dev-team workflow"
 # Über HTTPS klonen; SSH ist in Cloud-Umgebungen meist nicht eingerichtet.
 export CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1
 
+# Privates Repo: Token als Umgebungsvariable AGENTS_SKILLS_TOKEN in der Cloud-Umgebung
+# hinterlegen (Fine-grained PAT, nur dieses Repo, nur „Contents: Read“).
+# Der Token gilt nur für die Befehle in diesem Skript und nur für dieses Repo;
+# er wird nicht in die Git-Konfiguration geschrieben.
+if [ -n "$AGENTS_SKILLS_TOKEN" ]; then
+  export GIT_CONFIG_COUNT=1
+  export GIT_CONFIG_KEY_0="url.https://x-access-token:${AGENTS_SKILLS_TOKEN}@github.com/${MARKETPLACE_REPO}.insteadOf"
+  export GIT_CONFIG_VALUE_0="https://github.com/${MARKETPLACE_REPO}"
+fi
+
 mkdir -p ~/.claude
 {
   echo "== $(date) STAND=$STAND"

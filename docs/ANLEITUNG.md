@@ -155,7 +155,17 @@ Das Skript wird nach dem ersten Lauf zwischengespeichert. Neue Sitzungen starten
 
 Brauchst du in verschiedenen Repos verschiedene Plugins, lege mehrere Umgebungen an, z.B. „DB-Arbeit“ mit nur `dev-team`, und wähle beim Start der Sitzung die passende.
 
-> Getestet: Nach `claude plugin marketplace add` und `claude plugin install` auf einer Cloud-VM sind `/dev-team:…`, die Agents und `claude --agent workflow:model-router` im danach gestarteten Claude Code verfügbar. Ist das Repo `salvi1990/Agents_Skills` privat, muss die Umgebung es klonen können. Am einfachsten ist ein öffentliches Repo.
+**Wenn `Agents_Skills` privat ist:** Das Setup-Skript hat keinen GitHub-Zugriff. Der Zugriff einer Sitzung auf ihr Repo, z.B. `MSSQLServer_Install`, gilt nicht für andere Repos. Ohne weitere Schritte endet das im Protokoll mit `could not read Username for 'https://github.com'`. Zwei Lösungen:
+
+- **Repo öffentlich machen** (einfachste Lösung): GitHub → `Agents_Skills` → Settings → General → Danger Zone → *Change visibility* → Public. Das Repo enthält nur Prompts und Doku, keine Geheimnisse.
+- **Token hinterlegen**, wenn das Repo privat bleiben soll:
+  1. Auf GitHub unter *Settings → Developer settings → Personal access tokens → Fine-grained tokens* einen Token erstellen: *Repository access* nur `salvi1990/Agents_Skills`, *Permissions* nur **Contents: Read-only**, Ablaufdatum setzen.
+  2. In der Cloud-Umgebung unter **Umgebungsvariablen** eintragen: `AGENTS_SKILLS_TOKEN=github_pat_…`
+  3. Speichern, neue Sitzung starten.
+
+  Das Skript nutzt den Token nur für diesen einen Klon. Umgebungsvariablen sind in der Sitzung aber lesbar, deshalb ein Token mit minimalen Rechten verwenden. Ohne Token im Hintergrund schlagen spätere automatische Updates still fehl. Die installierte Version bleibt dann einfach erhalten, bis das Skript wieder läuft.
+
+> Getestet: Nach `claude plugin marketplace add` und `claude plugin install` auf einer Cloud-VM sind `/dev-team:…`, die Agents und `claude --agent workflow:model-router` im danach gestarteten Claude Code verfügbar.
 
 ### 3b. Agents und Skills ins Ziel-Repo kopieren (Notlösung)
 
@@ -242,6 +252,7 @@ Einen bestimmten Stand festhalten: beim Hinzufügen `#<branch-oder-tag>` anhäng
 |---|---|
 | `/dev-team:…` erscheint nicht (CLI) | `claude plugin list` prüfen; ggf. `/reload-plugins` oder neue Sitzung |
 | `/dev-team:…` erscheint nicht (Web) | Setup-Skript gespeichert? **Neue** Sitzung in **dieser** Umgebung gestartet? Ist `github.com` erreichbar (Netzwerk „Vertrauenswürdig“ oder Domain erlaubt)? In der Sitzung Claude bitten, `cat ~/.claude/agents-skills-setup.log` auszuführen, das zeigt den Fehler |
+| Protokoll zeigt `could not read Username for 'https://github.com'` | Repo `Agents_Skills` ist privat: öffentlich machen oder `AGENTS_SKILLS_TOKEN` setzen (Abschnitt 3a) |
 | Setup-Skript liegt als Datei im Ziel-Repo | Wirkt nicht. Es gehört ins Feld „Setup-Skript“ der Cloud-Umgebung |
 | `Plugin "…" not found in marketplace` | Marketplace-Name ist `agents-skills`, nicht `Agents_Skills`. `claude plugin marketplace list` zeigt die Namen |
 | Klonen schlägt fehl (privates Repo) | `gh auth login` und `gh auth setup-git`, oder SSH-Schlüssel ohne Passwortabfrage. Ohne SSH-Schlüssel hilft `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` |
